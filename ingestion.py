@@ -9,18 +9,15 @@ from langchain_pinecone import PineconeVectorStore
 load_dotenv()
 
 if __name__ == "__main__":
-    filepath = Path('mediumblog1.txt')
-    text = filepath.read_text(encoding='utf-8')
-    documents = Document(
-         page_content=text,
-        metadata={"source": str(filepath)}
-    )
+    filepath = Path("mediumblog1.txt")
+    text = filepath.read_text(encoding="utf-8")
+    documents = Document(page_content=text, metadata={"source": str(filepath)})
 
-    document=[documents]
+    document = [documents]
 
     print("splitting")
 
-    text_splitter = CharacterTextSplitter(chunk_size=1000,chunk_overlap=0)
+    text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
     texts = text_splitter.split_documents(documents=document)
     print(f"created {len(texts)} chunks")
 
@@ -28,9 +25,5 @@ if __name__ == "__main__":
 
     print("ingesting...")
     PineconeVectorStore.from_documents(
-        documents=texts,
-        embedding=embeddings,
-        index_name=os.getenv('INDEX_NAME')
+        documents=texts, embedding=embeddings, index_name=os.getenv("INDEX_NAME")
     )
-
-
