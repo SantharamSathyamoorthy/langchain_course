@@ -9,7 +9,11 @@ dependencies = [
     "langchain-community>=0.4.2",
     "langchain-ollama>=1.2.0",
     "langchain-openai>=1.8.5",
+    "langchain-pinecone>=0.2.13",
+    "langchain-text-splitters>=1.2.0",
+
     "python-dotenv>=1.2.4",
+
 ]
 
 [dependency-groups]
@@ -17,3 +21,7 @@ dev = [
     "black>=26.10.1",
     "isort>=9.0.2",
 ]
+
+[tool.uv]
+# llvmlite/numba >=0.45 ship no macOS x86_64 wheels; source build fails
+constraint-dependencies = ["llvmlite<0.45", "numba<0.62"]
